@@ -26,7 +26,7 @@
 // grid size = thread number / cuda block size
 // block size = cuda block size
 #define TNBS2GSBS(threadNum, cudaBlockSize) CalBlockNum(threadNum, cudaBlockSize), cudaBlockSize
-#define KERNEL_ARGS_SIMPLE(threadNum, cudaBlockSize) KERNEL_ARGS(TNBS2GSBS(threadNum, cudaBlockSize))
+#define KERNEL_ARGS_SIMPLE(threadNum, cudaBlockSize) KERNEL_ARGS(TNBS2GSBS((unsigned int)(threadNum), (unsigned int)(cudaBlockSize)))
 
 
 
@@ -70,6 +70,17 @@ template<typename T>
 void Copy(T* dst, const T* src, size_t n, cudaMemcpyKind kind = cudaMemcpyDefault) {
 	CheckCuda(cudaMemcpy(dst, src, sizeof(T) * n, kind));
 }
+
+template<typename T>
+T GetEntry(T* d_arr, size_t i) {
+	T res;
+	Copy(&res, d_arr + i, 1, cudaMemcpyDeviceToHost);
+	return std::move(res);
+};
+template<typename T>
+void SetEntry(T* d_arr, size_t i, const T& val) {
+	Copy(d_arr + i, &val, 1, cudaMemcpyHostToDevice);
+};
 
 
 

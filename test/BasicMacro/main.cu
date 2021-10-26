@@ -37,9 +37,16 @@ void Test_alias() {
 	cuh::Fill(d_x, 2, 3);
 	int* x = new int[N];
 	cuh::Copy(x, d_x, N);
-
 	for (size_t i = 0; i < N; i++)
 		assert(x[i] == 2);
+
+	cuh::SetEntry(d_x, 1, 8);
+	for (size_t i = 0; i < N; i++) {
+		if(i != 1)
+			assert(cuh::GetEntry(d_x, i) == 2);
+		else
+			assert(cuh::GetEntry(d_x, i) == 8);
+	}
 }
 
 int main() {
