@@ -1,0 +1,8 @@
+﻿#pragma once
+
+#ifndef CUDA_HELPER_NAMESPACE
+#define CUDA_HELPER_NAMESPACE cui
+#endif
+
+#define CUDA_HELPER_NAMESPACE_BEGIN namespace CUDA_HELPER_NAMESPACE {
+#define CUDA_HELPER_NAMESPACE_END }
