@@ -88,6 +88,7 @@ void SetEntry(T* d_arr, size_t i, const T& val) {
 
 
 // ========== Experimental Functions =============
+/*
 template<typename... T_KernelArgs>
 void LaunchKernel_usingAPI(void (*kernelFunc)(T_KernelArgs...),
 	unsigned int blockNum, unsigned int threadNum, size_t sharedMemBtyes, cudaStream_t stream,
@@ -112,5 +113,6 @@ void LaunchKernel_usingAPI<>(void (*kernelFunc)(void),
 		sharedMemBtyes, stream
 	));
 }
+*/
 
 CUDA_HELPER_NAMESPACE_END
