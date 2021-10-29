@@ -4,6 +4,7 @@
 #include <device_launch_parameters.h>
 
 #include <utility>
+#include <iostream>
 
 #include "cuda_helper_namespace.h"
 #include "cuda_helper_intellisense.h"
