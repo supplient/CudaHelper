@@ -73,6 +73,11 @@ void Copy(T* dst, const T* src, size_t n, cudaMemcpyKind kind = cudaMemcpyDefaul
 }
 
 template<typename T>
+__host__ __device__ void CopyAsync(T* dst, const T* src, size_t n, cudaStream_t stream = 0, cudaMemcpyKind kind = cudaMemcpyDefault) {
+	CheckCuda(cudaMemcpyAsync(dst, src, sizeof(T) * n, kind, stream));
+}
+
+template<typename T>
 T GetEntry(T* d_arr, size_t i) {
 	T res;
 	Copy(&res, d_arr + i, 1, cudaMemcpyDeviceToHost);
