@@ -13,14 +13,25 @@
 // ========== Macros =============
 #define LINEAR_THREAD_ID (blockDim.x * blockIdx.x + threadIdx.x)
 
-#define CheckCuda(x) {\
-	if(x != cudaSuccess) {\
-		std::cerr << "[CUDA Error][" << __FILE__ << " Line " << __LINE__ << "]\n\t[" \
-			<< cudaGetErrorName(x) << "] " \
-			<< cudaGetErrorString(x) << std::endl; \
-		throw x;\
-	}\
-}
+#ifndef __CUDA_ARCH__
+// host code
+	#define CheckCuda(x) {\
+		auto err = x;\
+		if(err != cudaSuccess) {\
+			printf("[CUDA Error][%s Line %i]\n\t[%s] %s\n", __FILE__, __LINE__, cudaGetErrorName(err), cudaGetErrorString(err)); \
+			throw err;\
+		}\
+	}
+#else
+// device code
+	#define CheckCuda(x) {\
+		auto err = x;\
+		if(err != cudaSuccess) {\
+			printf("[CUDA Error][%s Line %i]\n\t[%s] %s\n", __FILE__, __LINE__, cudaGetErrorName(err), cudaGetErrorString(err)); \
+			__trap();\
+		}\
+	}
+#endif
 
 #define CalBlockNum(total, per) ( (total - 1) / per + 1 )
 // thread number & cuda block size -> grid size & block size
@@ -73,7 +84,7 @@ void Copy(T* dst, const T* src, size_t n, cudaMemcpyKind kind = cudaMemcpyDefaul
 }
 
 template<typename T>
-__host__ void CopyAsync(T* dst, const T* src, size_t n, cudaStream_t stream = 0, cudaMemcpyKind kind = cudaMemcpyDefault) {
+__host__ __device__ void CopyAsync(T* dst, const T* src, size_t n, cudaStream_t stream = 0, cudaMemcpyKind kind = cudaMemcpyDefault) {
 	CheckCuda(cudaMemcpyAsync(dst, src, sizeof(T) * n, kind, stream));
 }
 
