@@ -15,3 +15,4 @@ int main()
 
 #include "cuda_helper_alias.h"
 #include "cuda_helper_graph.h"
+#include "cuda_helper_temp_storage.h"

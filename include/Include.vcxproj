@@ -25,6 +25,7 @@
     <ClInclude Include="cuda_helper_graph.h" />
     <ClInclude Include="cuda_helper_intellisense.h" />
     <ClInclude Include="cuda_helper_namespace.h" />
+    <ClInclude Include="cuda_helper_temp_storage.h" />
     <ClInclude Include="cud_helper_algo.h" />
     <ClInclude Include="lam2fp.h" />
   </ItemGroup>

@@ -49,9 +49,39 @@ void Test_alias() {
 	}
 }
 
+namespace kernel {
+	__global__ void SelfAdd(int* x, int n) {
+		auto ti = LINEAR_THREAD_ID;
+		if (ti >= n)
+			return;
+		x[ti] += x[ti];
+	}
+}
+
+void Test_TempStorage() {
+	auto func = [](int* d_x, size_t n) {
+		static cuh::TempStorage<int> tmp;
+		tmp.CheckAndAlloc(n);
+		cuh::Copy(tmp.Get(), d_x, n);
+		kernel::SelfAdd KERNEL_ARGS_SIMPLE(n, 32) (tmp.Get(), n);
+
+		int* x = new int[n];
+		cuh::Copy(x, tmp.Get(), n);
+		cout << "tmp: "; PrintArray(x, n); cout << endl;
+		delete[] x;
+	};
+
+	auto* d_x = cuh::Malloc<int>(5);
+	for (size_t i = 0; i < 5; i++)
+		cuh::SetEntry<int>(d_x, i, i);
+	func(d_x, 2);
+	func(d_x+1, 3);
+}
+
 int main() {
-	Test_macro();
-	Test_alias();
+	// Test_macro();
+	// Test_alias();
+	Test_TempStorage();
 
 	CheckCuda(cudaDeviceSynchronize());
 	return 0;
