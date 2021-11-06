@@ -16,7 +16,9 @@ public:
 	void Alloc(size_t newSize) {
 		if (newSize <= memSize)
 			return;
-		memSize = newSize * expandFactor;
+		memSize = static_cast<size_t>(static_cast<float>(newSize) * expandFactor);
+		if (memSize < newSize)
+			memSize = newSize;
 
 		if (d_mem)
 			CheckCuda(cudaFree(d_mem));

@@ -19,7 +19,7 @@
 		auto err = x;\
 		if(err != cudaSuccess) {\
 			printf("[CUDA Error][%s Line %i]\n\t[%s] %s\n", __FILE__, __LINE__, cudaGetErrorName(err), cudaGetErrorString(err)); \
-			throw err;\
+			abort();\
 		}\
 	}
 #else
