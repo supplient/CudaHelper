@@ -34,11 +34,18 @@
 #endif
 
 #define CalBlockNum(total, per) ( (total - 1) / per + 1 )
+
+// [[deprecated]]
 // thread number & cuda block size -> grid size & block size
 // grid size = thread number / cuda block size
 // block size = cuda block size
 #define TNBS2GSBS(threadNum, cudaBlockSize) CalBlockNum(threadNum, cudaBlockSize), cudaBlockSize
+// [[deprecated]]
 #define KERNEL_ARGS_SIMPLE(threadNum, cudaBlockSize) KERNEL_ARGS(TNBS2GSBS((unsigned int)(threadNum), (unsigned int)(cudaBlockSize)))
+
+#define KERNEL_ARGS_S2(threadNum, cudaBlockSize)				KERNEL_ARGS2(CalBlockNum((unsigned int)(threadNum), (unsigned int)(cudaBlockSize)), (unsigned int)(cudaBlockSize))
+#define KERNEL_ARGS_S3(threadNum, cudaBlockSize, stream)		KERNEL_ARGS4(CalBlockNum((unsigned int)(threadNum), (unsigned int)(cudaBlockSize)), (unsigned int)(cudaBlockSize), 0, (cudaStream_t)stream)
+#define KERNEL_ARGS_S4(threadNum, cudaBlockSize, stream, shMem)	KERNEL_ARGS4(CalBlockNum((unsigned int)(threadNum), (unsigned int)(cudaBlockSize)), (unsigned int)(cudaBlockSize), shMem, (cudaStream_t)stream)
 
 
 
