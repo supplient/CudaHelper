@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BasicMacro", "BasicMacro\Ba
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Include", "..\include\Include.vcxproj", "{0B5F2CFA-8989-4645-B2D8-151792C7E35D}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AlgoTest", "AlgoTest\AlgoTest.vcxproj", "{633716E7-B2C4-4567-B3B4-9E8DBAA7A708}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,12 @@ Global
 		{0B5F2CFA-8989-4645-B2D8-151792C7E35D}.Release|x64.Build.0 = Release|x64
 		{0B5F2CFA-8989-4645-B2D8-151792C7E35D}.Release|x86.ActiveCfg = Release|Win32
 		{0B5F2CFA-8989-4645-B2D8-151792C7E35D}.Release|x86.Build.0 = Release|Win32
+		{633716E7-B2C4-4567-B3B4-9E8DBAA7A708}.Debug|x64.ActiveCfg = Debug|x64
+		{633716E7-B2C4-4567-B3B4-9E8DBAA7A708}.Debug|x64.Build.0 = Debug|x64
+		{633716E7-B2C4-4567-B3B4-9E8DBAA7A708}.Debug|x86.ActiveCfg = Debug|x64
+		{633716E7-B2C4-4567-B3B4-9E8DBAA7A708}.Release|x64.ActiveCfg = Release|x64
+		{633716E7-B2C4-4567-B3B4-9E8DBAA7A708}.Release|x64.Build.0 = Release|x64
+		{633716E7-B2C4-4567-B3B4-9E8DBAA7A708}.Release|x86.ActiveCfg = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

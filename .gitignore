@@ -7,3 +7,5 @@
 /include/bin
 /test/BasicMacro/bin
 /test/bin
+/test/AlgoTest/bin/x64/Debug
+/test/AlgoTest/bin/x64/Release
