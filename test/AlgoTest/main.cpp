@@ -9,9 +9,9 @@ using namespace std;
 
 
 void Test_segOffset2segIndex() {
-	constexpr uint32_t minSegSize = 1;
+	constexpr uint32_t minSegSize = 0;
 	constexpr uint32_t maxSegSize = 500;
-	constexpr size_t n = 1000;
+	size_t n = 1000;
 	constexpr uint32_t seed = 0x4fc2eec3;
 
 	default_random_engine generator(seed);
@@ -25,13 +25,13 @@ void Test_segOffset2segIndex() {
 	uint32_t m = accumulate(A.begin(), A.end(), 0);
 	vector<uint32_t> B(m); {
 		size_t bi = 0;
-		for (uint32_t ai = 0; ai < n; ai++) {
+		for (uint32_t ai = 0; ai < A.size(); ai++) {
 			uint32_t count = A[ai];
-			do {
+			while (count > 0) {
 				B[bi] = ai;
 				bi++;
 				count--;
-			} while (count > 0);
+			}
 		}
 		assert(bi == m);
 	}

@@ -14,7 +14,8 @@ __global__ void SetMark(T_Data* out, const T_Data* in, size_t n) {
 	auto ti = LINEAR_THREAD_ID;
 	if (ti >= n-1)
 		return;
-	out[in[ti]] = 1;
+	atomicAdd(out + in[ti], 1);
+	// out[in[ti]] = 1;
 }
 }
 
